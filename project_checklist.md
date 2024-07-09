@@ -1,7 +1,7 @@
 #### 1. Project Setup
 - [X] Create GitHub repository.
-- [ ] Add initial files: `main.c`, `database.txt`, `README.md`, `report.pdf`.
-- [ ] Set up `.gitignore` if necessary.
+- [x] Add initial files: `main.c`, `database.txt`, `README.md`, `report.pdf`.
+- [x] Set up `.gitignore` if necessary.
 
 #### 2. Functionality Implementation
 - **Create Operation**
