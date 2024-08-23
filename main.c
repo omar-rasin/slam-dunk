@@ -11,7 +11,8 @@ void TeamRoster();
 void viewTeamRoster();
 void addPlayer();
 void deletePlayer();
-void PlayerStats();
+void searchPlayer();
+void PlayerStats();  // Function prototype for PlayerStats
 void viewPlayerStats();
 void addPlayerStats();
 void deletePlayerStats();
@@ -34,7 +35,7 @@ void mainMenu() {
 
     switch(choice) {
         case 1: TeamRoster(); break;
-        case 2: PlayerStats(); break;
+        case 2: PlayerStats(); break;  // Call the PlayerStats function
         case 3: /* Function to handle Coaches Roster */ break;
         case 4: /* Function to handle Equipment Inventory */ break;
         case 5: /* Function to handle Financial Records */ break;
@@ -47,7 +48,7 @@ void TeamRoster() {
     int choice;
 
     printf("\nTeam Roster:\n");
-    printf("1. View Team Roster\n2. Add Player\n3. Delete Player\n");
+    printf("1. View Team Roster\n2. Add Player\n3. Delete Player\n4. Search Player\n");
     printf("Enter the number of your preference: ");
     if (scanf("%d", &choice) != 1) {
         printf("Invalid Input - Please enter a valid number.\n");
@@ -58,6 +59,7 @@ void TeamRoster() {
         case 1: viewTeamRoster(); break;
         case 2: addPlayer(); break;
         case 3: deletePlayer(); break;
+        case 4: searchPlayer(); break;
         default: printf("Invalid Input - Please enter a valid operation number.\n");
     }
 }
@@ -149,28 +151,38 @@ void deletePlayer() {
     printf("Player deleted successfully.\n");
 }
 
-// Get the next player number based on the file contents
-int getNextPlayerNumber() {
+// Function to search players by position
+void searchPlayer() {
+    ensureFileExists(teamRosterFilename);
+
     FILE *file = fopen(teamRosterFilename, "r");
     if (file == NULL) {
-        return 1; // Start from 1 if file does not exist
+        perror("Error opening team roster file for reading");
+        return;
     }
 
-    int maxNumber = 0;
+    char position[3];
+    printf("Enter the position to search for (e.g., PG, SG, SF, PF, C): ");
+    scanf("%s", position);
+
     char line[256];
+    int found = 0;
+    printf("\nPlayers with position %s:\n", position);
     while (fgets(line, sizeof(line), file)) {
-        int number;
-        sscanf(line, "%d)", &number);
-        if (number > maxNumber) {
-            maxNumber = number;
+        if (strstr(line, position) != NULL) {
+            printf("%s", line);
+            found = 1;
         }
     }
 
+    if (!found) {
+        printf("No players found with position %s.\n", position);
+    }
+
     fclose(file);
-    return maxNumber + 1;
 }
 
-// Function to manage Player Stats
+// Function to handle Player Stats menu
 void PlayerStats() {
     int choice;
 
@@ -190,43 +202,29 @@ void PlayerStats() {
     }
 }
 
-// Function to view player stats in an organized manner
+// Function to view Player Stats
 void viewPlayerStats() {
-    ensureFileExists(statsFilename); // Ensure file exists before opening it
-    
     FILE *file = fopen(statsFilename, "r");
     if (file == NULL) {
-        perror("Error opening player stats file for reading");
+        printf("Error opening player stats file.\n");
         return;
     }
 
+    printf("\nNo.\tName\tPos\tPTS\tREB\tAST\tBLK\tTO\n");
+    printf("--------------------------------------------------------------\n");
+
     char line[256];
-    printf("\n%-5s %-10s %-3s %-28s %-28s %-28s %-28s %-28s\n", 
-           "No.", "Name", "Pos", "Avg Points/Game", "Avg Rebounds/Game", 
-           "Avg Assists/Game", "Avg Blocks/Game", "Avg Turnovers/Game");
-    printf("--------------------------------------------------------------------------------------------------------------------------\n");
-
     while (fgets(line, sizeof(line), file)) {
-        char name[50], position[3];
-        int playerNumber;
-        float avgPoints, avgRebounds, avgAssists, avgBlocks, avgTurnovers;
-
-        // Parse the line for player details
-        sscanf(line, "%d) %s - %s - Average points per game : %f , Average rebounds per game : %f , Average assists per game : %f , Average blocks per game : %f , Average turnovers per game : %f",
-               &playerNumber, name, position, &avgPoints, &avgRebounds, &avgAssists, &avgBlocks, &avgTurnovers);
-
-        // Print each player’s stats in an organized way
-        printf("%-5d %-10s %-3s %-28.2f %-28.2f %-28.2f %-28.2f %-28.2f\n",
-               playerNumber, name, position, avgPoints, avgRebounds, 
-               avgAssists, avgBlocks, avgTurnovers);
+        printf("%s", line);
     }
 
     fclose(file);
-    printf("--------------------------------------------------------------------------------------------------------------------------\n");
-    printf("End of Player Stats.\n");
-}
 
-// Function to add player stats
+    printf("\nEnd of Player Stats.\n");
+    
+    getchar();  // Wait for the user to press a key before returning to the main menu
+}
+// Function to add Player Stats
 void addPlayerStats() {
     ensureFileExists(statsFilename);
 
@@ -237,31 +235,31 @@ void addPlayerStats() {
     }
 
     char name[50], position[3];
-    float avgPoints, avgRebounds, avgAssists, avgBlocks, avgTurnovers;
-    
+    int points, rebounds, assists, blocks, turnovers;
+
     printf("Enter player name: ");
     scanf("%s", name);
     printf("Enter player position (e.g., PG, SG, SF, PF, C): ");
     scanf("%s", position);
     printf("Enter average points per game: ");
-    scanf("%f", &avgPoints);
+    scanf("%d", &points);
     printf("Enter average rebounds per game: ");
-    scanf("%f", &avgRebounds);
+    scanf("%d", &rebounds);
     printf("Enter average assists per game: ");
-    scanf("%f", &avgAssists);
+    scanf("%d", &assists);
     printf("Enter average blocks per game: ");
-    scanf("%f", &avgBlocks);
+    scanf("%d", &blocks);
     printf("Enter average turnovers per game: ");
-    scanf("%f", &avgTurnovers);
+    scanf("%d", &turnovers);
 
-    fprintf(file, "%d) %s - %s - Average points per game : %.2f , Average rebounds per game : %.2f , Average assists per game : %.2f , Average blocks per game : %.2f , Average turnovers per game : %.2f\n", 
-            getNextPlayerStatNumber(), name, position, avgPoints, avgRebounds, avgAssists, avgBlocks, avgTurnovers);
+    fprintf(file, "%d) %s - %s - PTS: %d, REB: %d, AST: %d, BLK: %d, TO: %d\n",
+            getNextPlayerStatNumber(), name, position, points, rebounds, assists, blocks, turnovers);
 
     fclose(file);
     printf("Player stats added successfully.\n");
 }
 
-// Function to delete player stats
+// Function to delete Player Stats
 void deletePlayerStats() {
     ensureFileExists(statsFilename);
 
@@ -303,6 +301,27 @@ void deletePlayerStats() {
     printf("Player stats deleted successfully.\n");
 }
 
+// Get the next player number based on the file contents
+int getNextPlayerNumber() {
+    FILE *file = fopen(teamRosterFilename, "r");
+    if (file == NULL) {
+        return 1; // Start from 1 if file does not exist
+    }
+
+    int maxNumber = 0;
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        int currentNumber;
+        sscanf(line, "%d)", &currentNumber);
+        if (currentNumber > maxNumber) {
+            maxNumber = currentNumber;
+        }
+    }
+
+    fclose(file);
+    return maxNumber + 1;
+}
+
 // Get the next player stat number based on the file contents
 int getNextPlayerStatNumber() {
     FILE *file = fopen(statsFilename, "r");
@@ -313,10 +332,10 @@ int getNextPlayerStatNumber() {
     int maxNumber = 0;
     char line[256];
     while (fgets(line, sizeof(line), file)) {
-        int number;
-        sscanf(line, "%d)", &number);
-        if (number > maxNumber) {
-            maxNumber = number;
+        int currentNumber;
+        sscanf(line, "%d)", &currentNumber);
+        if (currentNumber > maxNumber) {
+            maxNumber = currentNumber;
         }
     }
 
@@ -324,18 +343,17 @@ int getNextPlayerStatNumber() {
     return maxNumber + 1;
 }
 
-// Function to ensure a file exists, creating it if necessary
+// Ensure that the file exists before trying to read or write
 void ensureFileExists(const char *filename) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        file = fopen(filename, "w"); // Create the file if it does not exist
-    }
+    FILE *file = fopen(filename, "a");
     if (file != NULL) {
         fclose(file);
     }
 }
 
 int main() {
-    mainMenu();
+    while (1) {
+        mainMenu();
+    }
     return 0;
 }
