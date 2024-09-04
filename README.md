@@ -36,4 +36,4 @@ To run this project on your local machine, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/slam-dunk-basketball-club.git
+   git clone https://github.com/omar-rasin/slam-dunk-basketball-club.git
