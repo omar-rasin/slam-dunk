@@ -5,41 +5,41 @@
 
 #### 2. Functionality Implementation
 - **Create Operation**
-  - [ ] Function to add new records.
-  - [ ] Ensure new records are appended to the file.
+  - [x] Function to add new records.
+  - [x] Ensure new records are appended to the file.
 - **Read Operation**
-  - [ ] Function to display all records.
-  - [ ] Read data from file and print in a readable format.
+  - [x] Function to display all records.
+  - [x] Read data from file and print in a readable format.
 - **Update Operation**
-  - [ ] Function to modify existing records.
-  - [ ] Update the specific record in the file.
+  - [x] Function to modify existing records.
+  - [x] Update the specific record in the file.
 - **Delete Operation**
-  - [ ] Function to delete records.
-  - [ ] Remove the specific record from the file.
+  - [x] Function to delete records.
+  - [x] Remove the specific record from the file.
 - **Search Functionality**
-  - [ ] Function to search records based on criteria.
-  - [ ] Ensure search results are displayed clearly.
+  - [x] Function to search records based on criteria.
+  - [x] Ensure search results are displayed clearly.
 
 #### 3. File Handling
-- [ ] Implement file I/O functions.
-- [ ] Open files in the appropriate mode (read/write).
-- [ ] Close files after operations.
-- [ ] Handle file-related errors (e.g., file not found).
+- [x] Implement file I/O functions.
+- [x] Open files in the appropriate mode (read/write).
+- [x] Close files after operations.
+- [x] Handle file-related errors (e.g., file not found).
 
 #### 4. Code Readability and Organization
-- [ ] Modularize code into functions.
-- [ ] Follow camelCase naming convention.
-- [ ] Proper indentation and comments.
+- [x] Modularize code into functions.
+- [x] Follow camelCase naming convention.
+- [x] Proper indentation and comments.
 
 #### 5. Error Handling
-- [ ] Implement input validation.
-- [ ] Handle file operation errors.
-- [ ] Provide user-friendly error messages.
+- [x] Implement input validation.
+- [x] Handle file operation errors.
+- [x] Provide user-friendly error messages.
 
 #### 6. Documentation and Reporting
 - **GitHub Usage**
-  - [ ] Commit regularly with appropriate messages.
-  - [ ] Maintain a detailed `README.md`.
+  - [x] Commit regularly with appropriate messages.
+  - [x] Maintain a detailed `README.md`.
 - **Report PDF**
   - [ ] Detailed code explanation.
   - [ ] Include pictures and project logo.
@@ -47,10 +47,10 @@
   - [ ] Summarize features and implementation.
 
 ### Final Checklist
-- [ ] Ensure all CRUD operations and search functionality are implemented.
-- [ ] Code is clean, readable, and follows camelCase convention.
-- [ ] Proper file handling and error management.
-- [ ] Regular commits with meaningful messages.
-- [ ] Detailed `README.md` with project overview and usage instructions.
+- [x] Ensure all CRUD operations and search functionality are implemented.
+- [x] Code is clean, readable, and follows camelCase convention.
+- [x] Proper file handling and error management.
+- [x] Regular commits with meaningful messages.
+- [x] Detailed `README.md` with project overview and usage instructions.
 - [ ] Well-designed report PDF explaining each part of the code with pictures and a logo.
 - [ ] Submit by 1st August.
