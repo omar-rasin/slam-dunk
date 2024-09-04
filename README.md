@@ -30,10 +30,7 @@ This C program provides a comprehensive management system for a basketball club.
   - Add new equipment
   - Check stock levels
 
-## Installation
 
-To run this project on your local machine, follow these steps:
-
-1. **Clone the repository**:
+ **Clone the repository**:
    ```bash
    git clone https://github.com/omar-rasin/slam-dunk-basketball-club.git
