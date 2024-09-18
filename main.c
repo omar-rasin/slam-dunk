@@ -5,7 +5,7 @@
 const char *teamRosterFilename = "team_roster.txt";
 const char *statsFilename = "player_stats.txt";
 const char *coachesRosterFilename = "coaches_roster.txt";
-const char *equipmentInventoryFilename = "equipment_inventory.txt";  // File for Equipment Inventory
+const char *equipmentInventoryFilename = "equipment_inventory.txt";  
 
 // Function prototypes
 void mainMenu();
